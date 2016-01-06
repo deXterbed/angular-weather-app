@@ -1,24 +1,24 @@
-weatherApp.controller('homeController', ['$scope', 'cityService', function($scope, cityService){
+weatherApp.controller('homeController', ['$scope', '$location', 'cityService', function($scope, $location, cityService){
 
   $scope.city = cityService.city;
 
   $scope.$watch('city', function(){
-    cityService.city = $scope.city;
+    cityService.city = $scope.city.formatted_address || "New York, NY";
   });
+
+  $scope.submit = function(){
+    $location.path("/forecast");
+  };
 
 }]);
 
-weatherApp.controller('forecastController', ['$scope', '$resource', '$routeParams', 'cityService', function($scope, $resource, $routeParams, cityService){
+weatherApp.controller('forecastController', ['$scope', '$routeParams', 'cityService', 'weatherService', function($scope, $routeParams, cityService, weatherService){
 
   $scope.city = cityService.city;
 
   $scope.days = $routeParams.days || '2';
 
-  $scope.weatherAPI =
-    $resource("http://api.openweathermap.org/data/2.5/forecast/daily",
-      {callback: "JSON_CALLBACK"}, {get: {method: "JSONP"}});
-
-    $scope.weatherResult = $scope.weatherAPI.get({q: $scope.city, cnt: $scope.days, appid: '2de143494c0b295cca9337e1e96b00e0'})
+  $scope.weatherResult = weatherService.GetWeather($scope.city, $scope.days);
 
   $scope.convertToCelsius = function(degK){
     return Math.round(degK - 273.15);

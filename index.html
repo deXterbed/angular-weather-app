@@ -2,16 +2,19 @@
 <html ng-app="weatherApp">
   <head>
     <title>AngularJS Weather Forecast SPA</title>
+
     <script src="scripts/angular.js"></script>
     <script src="scripts/angular-route.js"></script>
     <script src="scripts/angular-resource.js"></script>
+    <script src="scripts/autocomplete.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/routes.js"></script>
     <script src="scripts/services.js"></script>
     <script src="scripts/controllers.js"></script>
     <script src="scripts/directives.js"></script>
-
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/autocomplete.css">
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
     <style type="text/css">
       html, body, input, select, textarea{
@@ -35,6 +38,7 @@
     <div class="container">
       <div ng-view></div>
     </div>
+
   </body>
 </html>
 
